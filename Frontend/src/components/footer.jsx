@@ -1,9 +1,10 @@
 const Footer = () => {
     return (
         <div className='text-gray-500/80 pt-8 px-6 md:px-16 lg:px-24 xl:px-32'>
+            
             <div className='flex flex-wrap justify-between gap-12 md:gap-6'>
                 <div className='max-w-80'>
-                    <img src="https://raw.githubusercontent.com/prebuiltui/prebuiltui/main/assets/dummyLogo/dummyLogoColored.svg" alt="logo" className='mb-4 h-8 md:h-9' />
+                    <img src="" alt="logo" className='mb-4 h-8 md:h-9' />
                     <p className='text-sm'>
                         Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text
                     </p>
@@ -68,6 +69,7 @@ const Footer = () => {
                     </div>
                 </div>
             </div>
+
             <hr className='border-gray-300 mt-8' />
             <div className='flex flex-col md:flex-row gap-2 items-center justify-between py-5'>
                 <p>Copyright © 2025. All rights reserved.</p>
@@ -77,6 +79,7 @@ const Footer = () => {
                     <li><a href="#">Admin</a></li>
                 </ul>
             </div>
+            
         </div>
     );
 };

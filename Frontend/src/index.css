@@ -1,1 +1,28 @@
+@import url('https://fonts.googleapis.com/css2?family=Merriweather+Sans:ital,wght@0,300..800;1,300..800&family=Open+Sans:ital,wght@0,300..800;1,300..800&display=swap');
 @import "tailwindcss";
+@tailwind utilities;
+
+@theme{
+    --font-primary: 'Merriweather Sans', sans-serif;
+    --font-secondary: 'Nunito Sans', sans-serif;
+    --color-primary: #F79A2E;
+    --color-secondary: #0D0842;
+    --color-blackBG: #F3F3F3;
+    --color-Favorite: #FF5841;
+}
+/* for noraml p version
+theme:{
+screens:{
+sm:'480px',
+md:'768px',
+lg:'876px',
+},
+extends:{
+colors:{
+"twiter-b":"#2434",
+orange:{
+500:'#453434',
+},
+},
+
+} */
