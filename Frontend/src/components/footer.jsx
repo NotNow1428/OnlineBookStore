@@ -1,8 +1,9 @@
 const Footer = () => {
     return (
-        <div className='text-gray-500/80 pt-8 px-6 md:px-16 lg:px-24 xl:px-32'>
+        <div className='text-gray-500/80 bg-bg pt-8 px-6 md:px-16 lg:px-24 xl:px-32'>
             
             <div className='flex flex-wrap justify-between gap-12 md:gap-6'>
+                
                 <div className='max-w-80'>
                     <img src="" alt="logo" className='mb-4 h-8 md:h-9' />
                     <p className='text-sm'>
@@ -13,7 +14,7 @@ const Footer = () => {
                 <div>
                     <p className='text-lg text-gray-800'>COMPANY</p>
                     <ul className='mt-3 flex flex-col gap-2 text-sm'>
-                        <li><a href="#">About</a></li>
+                        <li><a href="/about">About</a></li>
                         <li><a href="#">Blog</a></li>
                         <li><a href="#">Contact</a></li>
                         <li><a href="#">Gallery</a></li>
