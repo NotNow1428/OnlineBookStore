@@ -22,13 +22,15 @@ const mainNavigation = [
 const Navbar = () => {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-  const currentUser = true;
+  const currentUser = false;
 
   return (
     <header className="max-w-screen-2xl mx-auto px-4 py-4">
       <nav className="flex justify-between items-center relative">
+       
         {/* LEFT: Menu + Nav + Search */}
         <div className="flex items-center gap-4">
+         
           {/* Mobile Menu Icon */}
           <button
             onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
@@ -104,7 +106,7 @@ const Navbar = () => {
           {/* Cart */}
           <Link
             to="/cart"
-            className="bg-orange-500 text-white p-2 px-4 flex items-center gap-1 rounded-md text-sm"
+            className="bg-primary text-white p-2 px-4 flex items-center gap-1 rounded-md text-sm"
           >
             <HiOutlineShoppingCart />
             <span className="font-semibold">0</span>
