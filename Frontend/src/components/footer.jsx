@@ -1,18 +1,19 @@
+import fimg from '../assets/1.png';
 const Footer = () => {
     return (
-        <div className='text-gray-500/80 bg-bg pt-8 px-6 md:px-16 lg:px-24 xl:px-32'>
+        <div className='text-gray-500/80 bg footer-bg pt-8 px-6 md:px-16 lg:px-24 xl:px-10'>
             
             <div className='flex flex-wrap justify-between gap-12 md:gap-6'>
                 
                 <div className='max-w-80'>
-                    <img src="" alt="logo" className='mb-4 h-8 md:h-9' />
+                    <img src={fimg} alt="logo" className=' mb-4 h-8 md:h-9' />
                     <p className='text-sm'>
                         Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text
                     </p>
                 </div>
 
                 <div>
-                    <p className='text-lg text-gray-800'>COMPANY</p>
+                    <p className='text-lg primary-text'>COMPANY</p>
                     <ul className='mt-3 flex flex-col gap-2 text-sm'>
                         <li><a href="/about">About</a></li>
                         <li><a href="#">Blog</a></li>
@@ -22,7 +23,7 @@ const Footer = () => {
                 </div>
 
                 <div>
-                    <p className='text-lg text-gray-800'>Get in touch</p>
+                    <p className='text-lg primary-text'>Get in touch</p>
                     <ul className='mt-3 flex flex-col gap-2 text-sm'>
                         <li><p>+1-212-456-7890</p></li>
                         <li><p>contact@example.com</p></li>
@@ -56,7 +57,7 @@ const Footer = () => {
                 </div>
 
                 <div className='max-w-80'>
-                    <p className='text-lg text-gray-800'>STAY UPDATED</p>
+                    <p className='text-lg primary-text'>STAY UPDATED</p>
                     <p className='mt-3 text-sm'>
                         Subscribe to our newsletter for inspiration and special offers.
                     </p>

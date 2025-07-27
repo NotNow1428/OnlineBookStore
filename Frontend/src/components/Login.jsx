@@ -1,16 +1,15 @@
-import React from 'react';
+import React, { useState } from 'react';
 import loginimg from '../assets/loginimg.png';
+import { Link } from 'react-router-dom'
 
 const Login = () => {
+  const [message,setMessage] = useState("")
   return (
     <div className="flex h-screen w-full">
+
       {/* Left image section */}
       <div className="hidden md:flex w-1/2">
-        <img
-          className="object-cover w-full h-full"
-          src={loginimg}
-          alt="Bookstore visual"
-        />
+        <img className="object-cover w-full h-full" src={loginimg} alt="Bookstore visual"/>
       </div>
 
       {/* Right login form section */}
@@ -22,21 +21,15 @@ const Login = () => {
           </p>
 
           <div className="flex items-center w-full border border-gray-300 h-12 rounded-full pl-6 gap-2">
-            <input
-              type="email"
-              placeholder="Email address"
+            <input type="email" placeholder="Email address"
               className="bg-transparent text-sm text-gray-700 placeholder-gray-400 outline-none w-full"
-              required
-            />
+              required/>
           </div>
 
           <div className="flex items-center w-full border border-gray-300 h-12 rounded-full pl-6 gap-2 mt-5">
-            <input
-              type="password"
-              placeholder="Password"
+            <input type="password" placeholder="Password"
               className="bg-transparent text-sm text-gray-700 placeholder-gray-400 outline-none w-full"
-              required
-            />
+              required/>
           </div>
 
           <div className="w-full flex items-center justify-between mt-6 text-sm text-gray-500">
@@ -48,11 +41,10 @@ const Login = () => {
               Forgot password?
             </a>
           </div>
-
-          <button
-            type="submit"
-            className="mt-6 w-full h-11 rounded-full text-white bg-indigo-500 hover:opacity-90 transition"
-          >
+            {
+              message && <p className='text-red-500 text-xs italic mb-2'>{message}</p>
+            }
+          <button type="submit" className="mt-6 w-full h-11 rounded-full text-white bg-indigo-500 hover:opacity-90 transition">
             Login
           </button>
 
@@ -62,23 +54,15 @@ const Login = () => {
             <div className="flex-grow h-px bg-gray-300"></div>
           </div>
 
-          <button
-            type="button"
-            className="w-full flex items-center justify-center h-12 rounded-full bg-gray-100"
-          >
+          <button type="button" className="w-full flex items-center justify-center h-12 rounded-full bg-gray-100">
             <img
               src="https://raw.githubusercontent.com/prebuiltui/prebuiltui/main/assets/login/googleLogo.svg"
-              alt="Google login"
-              className="h-5 w-5 mr-2"
-            />
-            <span className="text-sm text-gray-700">Sign in with Google</span>
+              alt="Google login"/>
           </button>
 
           <p className="text-sm text-gray-500 mt-4">
             Don’t have an account?{' '}
-            <a href="/Register" className="text-indigo-500 hover:underline">
-              Sign up
-            </a>
+            <Link to="/Register" className="text-indigo-500 hover:underline">Sign up</Link>
           </p>
         </form>
       </div>

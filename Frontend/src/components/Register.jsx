@@ -1,15 +1,13 @@
 import React from 'react'
 import loginimg from '../assets/loginimg.png';
+import { Link } from 'react-router-dom'
+
 const Register = () => {
   return (
     <div className="flex h-screen w-full">
       {/* Left image section */}
       <div className="hidden md:flex w-1/2">
-        <img
-          className="object-cover w-full h-full"
-          src={loginimg}
-          alt="Bookstore visual"
-        />
+        <img className="object-cover w-full h-full" src={loginimg} alt="Bookstore visual"/>
       </div>
 
       {/* Right register form section */}
@@ -22,42 +20,26 @@ const Register = () => {
 
           {/* Name input */}
           <div className="flex items-center w-full border border-gray-300 h-12 rounded-full pl-6 gap-2">
-            <input
-              type="text"
-              placeholder="Full Name"
-              className="bg-transparent text-sm text-gray-700 placeholder-gray-400 outline-none w-full"
-              required
-            />
+            <input type="text" placeholder="Full Name"
+              className="bg-transparent text-sm text-gray-700 placeholder-gray-400 outline-none w-full" required/>
           </div>
 
           {/* Email input */}
           <div className="flex items-center w-full border border-gray-300 h-12 rounded-full pl-6 gap-2 mt-5">
-            <input
-              type="email"
-              placeholder="Email address"
-              className="bg-transparent text-sm text-gray-700 placeholder-gray-400 outline-none w-full"
-              required
-            />
+            <input type="email" placeholder="Email address"
+              className="bg-transparent text-sm text-gray-700 placeholder-gray-400 outline-none w-full" required/>
           </div>
 
           {/* Password input */}
           <div className="flex items-center w-full border border-gray-300 h-12 rounded-full pl-6 gap-2 mt-5">
-            <input
-              type="password"
-              placeholder="Password"
-              className="bg-transparent text-sm text-gray-700 placeholder-gray-400 outline-none w-full"
-              required
-            />
+            <input type="password" placeholder="Password"
+              className="bg-transparent text-sm text-gray-700 placeholder-gray-400 outline-none w-full" required/>
           </div>
 
           {/* Confirm Password input */}
           <div className="flex items-center w-full border border-gray-300 h-12 rounded-full pl-6 gap-2 mt-5">
-            <input
-              type="password"
-              placeholder="Confirm Password"
-              className="bg-transparent text-sm text-gray-700 placeholder-gray-400 outline-none w-full"
-              required
-            />
+            <input type="password" placeholder="Confirm Password"
+              className="bg-transparent text-sm text-gray-700 placeholder-gray-400 outline-none w-full" required/>
           </div>
 
           {/* Terms and Conditions */}
@@ -70,10 +52,7 @@ const Register = () => {
           </div>
 
           {/* Register button */}
-          <button
-            type="submit"
-            className="mt-6 w-full h-11 rounded-full text-white bg-indigo-500 hover:opacity-90 transition"
-          >
+          <button type="submit" className="mt-6 w-full h-11 rounded-full text-white bg-indigo-500 hover:opacity-90 transition">
             Register
           </button>
 
@@ -85,24 +64,16 @@ const Register = () => {
           </div>
 
           {/* Google sign-up */}
-          <button
-            type="button"
-            className="w-full flex items-center justify-center h-12 rounded-full bg-gray-100"
-          >
-            <img
-              src="https://raw.githubusercontent.com/prebuiltui/prebuiltui/main/assets/login/googleLogo.svg"
-              alt="Google sign-up"
-              className="h-5 w-5 mr-2"
-            />
-            <span className="text-sm text-gray-700">Sign up with Google</span>
+          <button type="button" className="w-full flex items-center justify-center h-12 rounded-full bg-gray-100">
+            <img src="https://raw.githubusercontent.com/prebuiltui/prebuiltui/main/assets/login/googleLogo.svg" alt="Google sign-up"/>
           </button>
 
           {/* Already have an account */}
           <p className="text-sm text-gray-500 mt-4">
             Already have an account?{' '}
-            <a href="/Login" className="text-indigo-500 hover:underline">
+            <Link to="/Login" className="text-indigo-500 hover:underline">
               Sign in
-            </a>
+            </Link>
           </p>
         </form>
       </div>

@@ -2,28 +2,42 @@
 @import "tailwindcss";
 @tailwind utilities;
 
-@theme{
-    --font-primary: 'Merriweather Sans', sans-serif;
-    --font-secondary: 'Nunito Sans', sans-serif;
-    --color-primary: #F79A2E;
-    --color-secondary: #0D0842;
-    --color-blackBG: #F3F3F3;
-    --color-Favorite: #FF5841;
-    --color-bg: #ebe2e2;
-}
-/* for noraml previous version
-theme:{
-screens:{
-sm:'480px',
-md:'768px',
-lg:'876px',
-},
-extends:{
-colors:{
-"twiter-b":"#2434",
-orange:{
-500:'#453434',
-},
-},
+:root {
+  /* Colors */
+  --primary-bg: #0A1730;
+  /* Dropdown background (dark card background): bg-[var(--card-bg)] */
+  --card-bg: #111C36; 
+  /* Border color → border border-[var(--accent)]); bg-[var(--accent)]*/
+  --accent: #F4A62A;
+  /* Hover border color →hover:border-[var(--accent-hover)] */
+  --accent-hover: #d98900;
+  --link-hover: #1E90FF;
+  /* color text */
+  --text-primary: #FFFFFF;
+  --text-secondary: #B0B8C6;
 
-} */
+  /* Fonts */
+  --font-heading: 'Poppins', sans-serif;
+  --font-body: 'Inter', sans-serif;
+}
+
+/* Apply fonts globally */
+body {
+  font-family: var(--font-body);
+  background-color: var(--primary-bg);
+  color: var(--text-primary);
+}
+
+h1, h2, h3 {
+  font-family: var(--font-heading);
+}
+.bg{
+    background: #1c2027;
+}
+.primary-text {
+  color: var(--text-primary);
+}
+
+.secondary-text {
+  color: var(--text-secondary);
+}

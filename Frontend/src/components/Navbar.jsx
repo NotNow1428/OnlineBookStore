@@ -5,6 +5,7 @@ import { HiOutlineUser } from "react-icons/hi";
 
 import avatarImg from "../assets/avatar.png";
 import { useState } from "react";
+import { useSelector } from "react-redux";
 
 const userNavigation = [
   { name: "Dashboard", href: "/user-dashboard" },
@@ -22,6 +23,7 @@ const mainNavigation = [
 const Navbar = () => {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const cartItem = useSelector(state => state.cart)
   const currentUser = false;
 
   return (
@@ -54,12 +56,12 @@ const Navbar = () => {
             <input
               type="text"
               placeholder="Search here"
-              className="bg-[#EAEAEA] w-full py-2 pl-10 pr-4 rounded-md text-sm focus:outline-none"
+              className=" border border-[var(--accent)]) w-full py-2 pl-10 pr-4 rounded-md text-sm focus:outline-none"
             />
           </div>
         </div>
 
-        {/* RIGHT: User + Wishlist + Cart */}
+        {/* RIGHT: User + Cart */}
         <div className="relative flex items-center gap-2 sm:gap-3">
           {/* Avatar & Dropdown */}
           <div>
@@ -98,18 +100,20 @@ const Navbar = () => {
             )}
           </div>
 
-          {/* Wishlist */}
+          {/* Wishlist
           <button className="hidden sm:block">
             <HiOutlineHeart className="size-6" />
-          </button>
+          </button> */}
 
           {/* Cart */}
           <Link
             to="/cart"
-            className="bg-primary text-white p-2 px-4 flex items-center gap-1 rounded-md text-sm"
-          >
-            <HiOutlineShoppingCart />
-            <span className="font-semibold">0</span>
+            className="text-white p-2 px-4 flex items-center gap-1 rounded-md text-sm bg-[var(--accent)]">
+            <HiOutlineShoppingCart className="" />
+          {
+            cartItem.length > 0 ? <span className="font-semibold">
+            {cartItem.length}</span> : <span className="font-semibold">0</span>
+          }
           </Link>
         </div>
       </nav>
