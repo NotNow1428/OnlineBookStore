@@ -1,4 +1,4 @@
-import fimg from '../assets/1.png';
+import fimg from '../assets/footer-logo.png';
 const Footer = () => {
     return (
         <div className='text-gray-500/80 bg footer-bg pt-8 px-6 md:px-16 lg:px-24 xl:px-10'>
