@@ -3,11 +3,11 @@ import App from "../App";
 import Home from "../pages/home/Home";
 import Login from "../components/Login";
 import Register from "../components/Register";
-import CartPages from "../pages/books/CartPages";
+import CartPage from "../pages/books/CartPage";
 
 const router = createBrowserRouter([
     {
-        path: "/",
+    path: "/",
     element: <App />,
     children:[
         { 
@@ -15,8 +15,8 @@ const router = createBrowserRouter([
             element: <Home/>,
         },
         {
-            path: "/orders",
-            element: <div>Orders</div>
+            path: "/cantact",
+            element: <div>Cantact</div>   
         },
         {
             path: "/about",
@@ -32,7 +32,7 @@ const router = createBrowserRouter([
         },
         {
             path: "/cart",
-            element: <CartPages />  
+            element: <CartPage />  
         }
     ]
     },

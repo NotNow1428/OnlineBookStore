@@ -13,7 +13,7 @@ import 'swiper/css/pagination';
 import 'swiper/css/navigation';
 
 
-const categories = ["Choose a genre", "Business", "Fiction", "Horror","Adventure"]
+const categories = ["Choose a genre", "Business", "Sci-Fi", "Horror", "Adventure", "Love & Romance"]
 
 const TopSellers =() => {
     const [books, setBooks] = useState([]);

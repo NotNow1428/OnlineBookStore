@@ -1,36 +1,4 @@
-/* @import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&family=Nunito+Sans:ital,opsz,wght@0,6..12,200..1000;1,6..12,200..1000&display=swap'); */
 @import url('https://fonts.googleapis.com/css2?family=Merriweather+Sans:ital,wght@0,300..800;1,300..800&family=Open+Sans:ital,wght@0,300..800;1,300..800&display=swap');
-
-.swiper {
-    /* width: 100%;
-    height: 100%; */
-  }
-  
-  .swiper-slide {
-    /* background: #fff;
-    display: flex;
-    justify-content: center;
-    align-items: center; */
-
-  }
-  
-  .swiper-slide img {
-    /* display: block;
-    width: 100%;
-    height: 100%;
-    object-fit: cover; */
-  }
-
- .swiper-button-prev {
-    /* display: none !important; */
- }
- /* .swiper-button-next{
-    @apply bg-white p-5 rounded-full z-50 shadow-md
- } */
-
- .swiper-button-prev:after, .swiper-button-next:after{
-    /* font-size: 16px !important; */
- }
 
  .btn-primary {
     /* @apply bg-primary  px-12 py-2 rounded-md text-base font-secondary font-bold hover:bg-secondary hover:text-white transition-all duration-200 cursor-pointer */
@@ -47,11 +15,6 @@
   transition: all 0.2s ease-in-out;
   color: white;
 }
-/* .btn-primary:hover {
-  background-color: #0D0842;          
-  color: white;
-} */
-
 .html{
    /* scroll-behavior: smooth; */
 }
@@ -69,6 +32,6 @@ button {
   background: var(--accent);
 }
 */
-button:hover {
-  background: var(--accent-hover);
+.btn-primary:hover {
+  background-color: var(--accent-hover);
 }
