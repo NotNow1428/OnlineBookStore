@@ -1,5 +1,5 @@
 import React from 'react';
-import { FiShoppingCart } from 'react-icons/fi';
+import { HiOutlineShoppingCart } from "react-icons/hi";
 import { getImgUrl } from '../../utils/getImgUrl';
 import { Link } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
@@ -46,8 +46,8 @@ const BookCard = ({ book }) => {
           </p>
           <button
             onClick={() => handleAddToCart(book)}
-            className="btn-primary px-6 py-2 space-x-1 flex items-center gap-2 bg-blue-600 hover:bg-blue-700 text-white rounded-md">
-            <FiShoppingCart />
+            className="btn-primary mx-auto mt-4 px-4 py-1 text-sm flex items-center gap-1 bg-blue-600 hover:bg-blue-700 text-white rounded-md">
+            <HiOutlineShoppingCart size={28} />
             <span>Add to Cart</span>
           </button>
         </div>
