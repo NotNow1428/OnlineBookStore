@@ -3,54 +3,61 @@ import { HiOutlineShoppingCart } from "react-icons/hi";
 import { getImgUrl } from '../../utils/getImgUrl';
 import { Link } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
-import { addToCart } from '../../redux/features/cart/cartSlice';
+import { addToCart } from '../../redux/features/cartSlice';
 
 const BookCard = ({ book }) => {
   const dispatch = useDispatch();
+
   const handleAddToCart = (product) => {
     dispatch(addToCart(product));
   };
 
   return (
-    <div className="rounded-lg transition-shadow duration-300">
-      <div className="flex flex-col sm:flex-row sm:items-center sm:h-72 sm:justify-start gap-4">
-        
-        {/* Book Image Section */}
-        <div className="w-40 h-60 overflow-hidden border rounded-md shadow-sm flex-shrink-0">
-          <Link to={`/books/${book.id}`}>
-            <img
-              src={getImgUrl(book.coverImage)}
-              alt={book?.title}
-              className="w-full h-full object-cover hover:scale-105 transition-transform duration-200"
-            />
-          </Link>
-        </div>
+    <div className="bg-[#0f172a] text-white rounded-lg p-4 shadow flex flex-col sm:flex-row gap-5 max-w-2xl w-full">
+      
+      {/* Book Cover */}
+      <Link to={`/books/${book.id}`} className="w-full sm:w-32 h-48 overflow-hidden rounded-md flex-shrink-0">
+        <img
+          src={getImgUrl(book.coverImage)}
+          alt={book?.title}
+          className="w-full h-full object-cover hover:scale-105 transition-transform duration-200"
+        />
+      </Link>
 
-        {/* Book Details Section */}
-        <div className="flex flex-col justify-between h-full sm:py-4">
-          <Link to={`/books/${book.id}`}>
-            <h3 className="text-xl font-semibold hover:text-blue-600 mb-3">
-              {book?.title}
-            </h3>
-          </Link>
-          <p className="text-gray-600 text-sm mb-4">
-            {book?.description.length > 80
-              ? `${book.description.slice(0, 80)}...`
-              : book?.description}
-          </p>
-          <p className="font-medium mb-4">
-            NPR {book?.newPrice}
-            <span className="line-through font-normal ml-2 text-gray-500">
+      {/* Book Info */}
+      <div className="flex flex-col justify-between flex-1">
+        {/* Title */}
+        <Link to={`/books/${book.id}`}>
+          <h3 className="text-lg font-semibold hover:text-blue-400 mb-3">
+            {book?.title}
+          </h3>
+        </Link>
+
+        {/* Description */}
+        <p className="text-sm text-gray-300 mb-4 leading-relaxed">
+          {book?.description?.length > 80
+            ? `${book.description.slice(0, 80)}...`
+            : book?.description}
+        </p>
+
+        {/* Price */}
+        <p className="text-white font-semibold text-base mb-6">
+          NPR {book?.newPrice}
+          {book?.oldPrice && (
+            <span className="ml-2 text-gray-400 line-through text-sm font-normal">
               NPR {book?.oldPrice}
             </span>
-          </p>
-          <button
-            onClick={() => handleAddToCart(book)}
-            className="btn-primary mx-auto mt-4 px-4 py-1 text-sm flex items-center gap-1 bg-blue-600 hover:bg-blue-700 text-white rounded-md">
-            <HiOutlineShoppingCart size={28} />
-            <span>Add to Cart</span>
-          </button>
-        </div>
+          )}
+        </p>
+
+        {/* Add to Cart Button */}
+        <button
+          onClick={() => handleAddToCart(book)}
+          className="flex items-center gap-1 bg-yellow-500 hover:bg-yellow-600 text-black text-sm font-semibold px-4 py-2 rounded-md w-fit"
+        >
+          <HiOutlineShoppingCart size={20} />
+          Add to Cart
+        </button>
       </div>
     </div>
   );
