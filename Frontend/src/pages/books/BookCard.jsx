@@ -53,8 +53,7 @@ const BookCard = ({ book }) => {
         {/* Add to Cart Button */}
         <button
           onClick={() => handleAddToCart(book)}
-          className="flex items-center gap-1 bg-yellow-500 hover:bg-yellow-600 text-black text-sm font-semibold px-4 py-2 rounded-md w-fit"
-        >
+          className="flex items-center gap-1 bg-yellow-500 hover:bg-yellow-600 text-black text-sm font-semibold px-4 py-2 rounded-md w-fit">
           <HiOutlineShoppingCart size={20} />
           Add to Cart
         </button>
