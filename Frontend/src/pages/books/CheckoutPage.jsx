@@ -4,8 +4,8 @@ import { useForm } from "react-hook-form"
 import { Link, useNavigate } from 'react-router-dom';
 import { useAuth } from '../../firebase/Authcontext';
 
-// import Swal from 'sweetalert2';
-// import { useCreateOrderMutation } from '../../redux/features/orders/ordersApi';
+import Swal from 'sweetalert2';
+import { useCreateOrderMutation } from '../../redux/features/ordersApi';
 
 const CheckoutPage = () => {
   const cartItems = useSelector(state => state.cart.cartItems);
@@ -18,8 +18,8 @@ const CheckoutPage = () => {
     formState: { errors },
   } = useForm()
 
-  // const [createOrder, { isLoading, error }] = useCreateOrderMutation();
-  // const navigate = useNavigate()
+  const [createAOrder, { isLoading, error }] = useCreateOrderMutation();
+  const navigate = useNavigate()
 
   const [isChecked, setIsChecked] = useState(false)
   const onSubmit = async (data) => {
@@ -40,7 +40,7 @@ const CheckoutPage = () => {
     }
 
     try {
-      await createOrder(newOrder).unwrap();
+      await createAOrder(newOrder).unwrap();
       Swal.fire({
         title: "Confirmed Order",
         text: "Your order placed successfully!",
@@ -57,7 +57,7 @@ const CheckoutPage = () => {
     }
   }
 
-  // if (isLoading) return <div>Loading....</div>
+  if (isLoading) return <div>Loading....</div>
   return (
     <section>
       <div className="min-h-screen p-6 bg-gray-100 flex items-center justify-center">

@@ -1,4 +1,5 @@
 import fimg from '../assets/footer-logo.png';
+
 const Footer = () => {
     return (
         <div className='text-gray-500/80 bg footer-bg pt-8 px-6 md:px-16 lg:px-24 xl:px-10'>
@@ -78,7 +79,7 @@ const Footer = () => {
                 <ul className='flex items-center gap-4'>
                     <li><a href="#">Privacy</a></li>
                     <li><a href="#">Terms</a></li>
-                    <li><a href="#">Admin</a></li>
+                    <li><a href="/admin">Admin</a></li>
                 </ul>
             </div>
             
