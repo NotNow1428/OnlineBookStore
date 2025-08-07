@@ -4,12 +4,13 @@ import getBaseUrl from '../../utils/baseURL';
 const baseQuery = fetchBaseQuery({
     baseUrl: `${getBaseUrl()}/api/books`,
     credentials: `include`,
-    prepareHeaders: (Headers) => {
+    prepareHeaders: (headers) => {
         const token = localStorage.getItem('token');
+        console.log('Auth Token:', token);
         if (token) {
-            Headers.set('Authorization', 'Bearer ${token}');
+            headers.set('Authorization', `Bearer ${token}`);
         }
-        return Headers;
+        return headers;
     }
 })
 const booksApi = createApi({
@@ -48,7 +49,8 @@ const booksApi = createApi({
             }),
             invalidatesTags: ["Books"]
         }),
-        //fetchinapi for delete
+
+        //fetchingapi for delete
         deleteBook: builder.mutation({
             query: (id) => ({
                 url: `/${id}`,
@@ -58,7 +60,6 @@ const booksApi = createApi({
         })
 
     })
-
 })
 export const { useFetchAllBooksQuery, useFetchBookByIdQuery, useAddBookMutation, useUpdateBookMutation, useDeleteBookMutation } = booksApi;
 export default booksApi;

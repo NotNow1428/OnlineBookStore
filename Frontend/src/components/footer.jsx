@@ -79,7 +79,6 @@ const Footer = () => {
                 <ul className='flex items-center gap-4'>
                     <li><a href="#">Privacy</a></li>
                     <li><a href="#">Terms</a></li>
-                    <li><a href="/admin">Admin</a></li>
                 </ul>
             </div>
             
