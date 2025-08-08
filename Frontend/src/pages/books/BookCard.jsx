@@ -42,12 +42,7 @@ const BookCard = ({ book }) => {
 
         {/* Price */}
         <p className="text-white font-semibold text-base mb-6">
-          NPR {book?.newPrice}
-          {book?.oldPrice && (
-            <span className="ml-2 text-gray-400 line-through text-sm font-normal">
-              NPR {book?.oldPrice}
-            </span>
-          )}
+          NPR {book?.Price}
         </p>
 
         {/* Add to Cart Button */}

@@ -1,6 +1,5 @@
 import React from 'react'
 import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
 import Loading from '../../components/Loading';
 import axios from 'axios';
 import { useEffect } from 'react';
@@ -10,8 +9,6 @@ import { MdIncompleteCircle } from 'react-icons/md';
 const Dashboard = () => {
     const [loading, setLoading] = useState(true);
     const [data, setData] = useState({});
-    const navigate = useNavigate()
-
     useEffect(() => {
         const fetchData = async () => {
             try {
@@ -52,7 +49,7 @@ const Dashboard = () => {
                           </svg>
                         </div>
                         <div>
-                          <span className="block text-2xl font-bold">${data?.totalSales}</span>
+                          <span className="block text-2xl font-bold">NPR.{data?.totalSales}</span>
                           <span className="block text-gray-500">Total Sales</span>
                         </div>
                       </div>

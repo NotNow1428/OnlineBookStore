@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 const bookSchema = new mongoose.Schema({
-  title:{
+  title: {
     type: String,
     required: true,
   },
@@ -13,7 +13,7 @@ const bookSchema = new mongoose.Schema({
     required: true,
   },
   category: {
-    type: String,  
+    type: String,
     required: true,
   },
   trending: {
@@ -24,16 +24,15 @@ const bookSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
-  oldPrice: Number,
-  newPrice: Number,
-  createdAt:{
+  Price: Number,
+  createdAt: {
     type: Date,
     default: Date.now,
   }
 },
-{
-timestamps: true,
-});
+  {
+    timestamps: true,
+  });
 
 const Book = mongoose.model('Book', bookSchema);
 module.exports = Book;

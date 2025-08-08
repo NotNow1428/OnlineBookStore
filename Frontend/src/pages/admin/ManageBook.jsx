@@ -52,7 +52,7 @@ const ManageBook = () => {
                                         <td className="px-6 py-4 text-sm border-b border-blueGray-100">{index + 1}</td>
                                         <td className="px-6 py-4 text-sm border-b border-blueGray-100">{book.title}</td>
                                         <td className="px-6 py-4 text-sm border-b border-blueGray-100">{book.category}</td>
-                                        <td className="px-6 py-4 text-sm border-b border-blueGray-100">${book.newPrice}</td>
+                                        <td className="px-6 py-4 text-sm border-b border-blueGray-100">NPR.{book.Price}</td>
                                         <td className="px-6 py-4 text-sm border-b border-blueGray-100">
                                             <div className="flex space-x-2">
                                                 <Link

@@ -11,7 +11,7 @@ const AddBooks = () => {
   const [imageFile, setimageFile] = useState(null)
   const [imageFileName, setimageFileName] = useState('')
   const [addBook, { isLoading, isError }] = useAddBookMutation()
-  
+
   const onSubmit = async (data) => {
     const newBookData = {
       ...data,
@@ -20,21 +20,19 @@ const AddBooks = () => {
     try {
       await addBook(newBookData).unwrap();
       Swal.fire({
-              title: "Book Added",
-              text: "Your Book is Uploaded",
-              icon: "warning",
-              showCancelButton: true,
-              confirmButtonColor: "#3085d6",
-              cancelButtonColor: "#d33",
-              confirmButtonText: "Yes, It's Okay!"
-            });
-            reset();
-            setimageFileName('')
-            setimageFile(null);
+        title: "Book Added",
+        text: "Your Book is Uploaded",
+        icon: "Success",
+        confirmButtonColor: "#3085d6",
+        confirmButtonText: "Yes, It's Okay!"
+      });
+      reset();
+      setimageFileName('')
+      setimageFile(null);
     } catch (error) {
       console.error(error);
       alert("Failed to add book")
-      
+
     }
   }
 
@@ -46,7 +44,7 @@ const AddBooks = () => {
     }
   }
   return (
-    <div className="max-w-lg   mx-auto md:p-6 p-3 bg-white rounded-lg shadow-md">
+    <div className="max-w-lg mx-auto md:p-6 p-3 bg-white rounded-lg shadow-md">
       <h2 className="text-2xl font-bold text-gray-800 mb-4">Add New Book</h2>
 
       {/* Form starts here */}
@@ -106,38 +104,33 @@ const AddBooks = () => {
           </label>
         </div>
 
-        {/* Old Price
+        {/*Price */}
         <InputField
-          label="Old Price"
-          name="oldPrice"
+          label="Price"
+          name="Price"
           type="number"
-          placeholder="Old Price"
+          placeholder="Price"
           register={register}
-
-        /> */}
-
-        {/* New Price */}
-        <InputField
-          label="New Price"
-          name="newPrice"
-          type="number"
-          placeholder="New Price"
-          register={register}
-
         />
-{/* 
-  //     {imageFileName && (
-  //       <p className="text-sm text-gray-600 truncate max-w-[200px]">{imageFileName}</p>
-  //     )}
-  //   </div>
-  //   {!imageFileName && <p className="text-red-500 text-sm mt-1">No file selected</p>}
-  // </div> */}
 
         {/* Cover Image Upload */}
         <div className="mb-4">
-          <label className="block text-sm font-semibold text-gray-700 mb-2">Cover Image</label>
-          <input type="file" accept="image/*" onChange={handleFileChange} className="mb-2 w-full" />
-          {imageFileName && <p className="text-sm text-gray-500">Selected: {imageFileName}</p>}
+          <label className="block text-sm font-semibold text-gray-700 mb-2">
+            Cover Image
+          </label>
+
+          <input
+            type="file"
+            accept="image/*"
+            onChange={handleFileChange}
+            className="block w-full text-sm text-gray-500
+               file:mr-4 file:py-2 file:px-4
+               file:rounded-full file:border-0
+               file:text-sm file:font-semibold
+               file:bg-blue-50 file:text-blue-700
+               hover:file:bg-blue-100
+               cursor-pointer"
+          />
         </div>
 
         {/* Submit Button */}

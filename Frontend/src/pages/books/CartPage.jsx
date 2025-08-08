@@ -8,7 +8,7 @@ const CartPage = () => {
   const cartItems = useSelector(state => state.cart.cartItems);
   const dispatch = useDispatch()
 
-  const totalPrice = cartItems.reduce((acc, item) => acc + item.newPrice, 0).toFixed(2);
+  const totalPrice = cartItems.reduce((acc, item) => acc + item.Price, 0).toFixed(2);
 
   const handleRemoveFromCart = (product) => {
     dispatch(removeFromCart(product._id))
@@ -56,7 +56,7 @@ const CartPage = () => {
                                 <h3>
                                   <Link to='/'>{product?.title}</Link>
                                 </h3>
-                                <p className="sm:ml-4">NPR. {product?.newPrice}</p>
+                                <p className="sm:ml-4">NPR. {product?.Price}</p>
                               </div>
                               <p className="mt-1 text-sm text-gray-500 capitalize"><strong>Category: </strong>{product?.category}</p>
                             </div>
@@ -90,6 +90,7 @@ const CartPage = () => {
           <div className="flex justify-between text-base font-medium text-gray-900">
             <p>Subtotal</p>
             <p>NPR. {totalPrice ? totalPrice : 0}</p>
+            
           </div>
           <p className="mt-0.5 text-sm text-gray-500">Shipping and taxes calculated at checkout.</p>
           <div className="mt-6">

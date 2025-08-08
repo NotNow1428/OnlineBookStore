@@ -23,23 +23,23 @@ router.get("/", async (req, res) => {
 
         // 4. Trending books statistics: 
         const trendingBooksCount = await Book.aggregate([
-            { $match: { trending: true } },  // Match only trending books
-            { $count: "trendingBooksCount" }  // Return the count of trending books
+            { $match: { trending: true } },  
+            { $count: "trendingBooksCount" } 
         ]);
         
-        // If you want just the count as a number, you can extract it like this:
+        // count trending number
         const trendingBooks = trendingBooksCount.length > 0 ? trendingBooksCount[0].trendingBooksCount : 0;
 
-        // 5. Total number of books
+        //  Total number of books
         const totalBooks = await Book.countDocuments();
 
-        // 6. Monthly sales (group by month and sum total sales for each month)
+        //  Monthly sales (group by month and sum total sales for each month)
         const monthlySales = await Order.aggregate([
             {
                 $group: {
-                    _id: { $dateToString: { format: "%Y-%m", date: "$createdAt" } },  // Group by year and month
-                    totalSales: { $sum: "$totalPrice" },  // Sum totalPrice for each month
-                    totalOrders: { $sum: 1 }  // Count total orders for each month
+                    _id: { $dateToString: { format: "%Y-%m", date: "$createdAt" } },  
+                    totalSales: { $sum: "$totalPrice" },  
+                    totalOrders: { $sum: 1 } 
                 }
             },
             { $sort: { _id: 1 } }  
