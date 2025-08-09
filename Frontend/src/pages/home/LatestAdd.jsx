@@ -10,10 +10,10 @@ import 'swiper/css/navigation';
 
 import { useFetchAllBooksQuery } from '../../redux/features/booksApi';
 
-const TopSellers = () => {
+const LatestAdd = () => {
   const { data: books = [] } = useFetchAllBooksQuery();
 
-  // Sort books by newest first (assuming createdAt exists)
+  // Sort books by newest first
   const sortedBooks = [...books].sort(
     (a, b) => new Date(b.createdAt) - new Date(a.createdAt)
   );
@@ -47,4 +47,4 @@ const TopSellers = () => {
   );
 };
 
-export default TopSellers;
+export default LatestAdd;

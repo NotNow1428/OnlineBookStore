@@ -17,6 +17,7 @@ import AddBook from "../pages/admin/AddBooks";
 import AddBooks from "../pages/admin/AddBooks";
 import UpdateBook from "../pages/admin/UpdateBook";
 import Products from "../components/Products";
+import About from "../components/About";
 
 
 const router = createBrowserRouter([
@@ -33,8 +34,8 @@ const router = createBrowserRouter([
                 element: <Products />
             },
             {
-                path: "/contact",
-                element: <div>Contact</div>
+                path: "/about",
+                element: <About />
             },
             {
                 path: "/orders",

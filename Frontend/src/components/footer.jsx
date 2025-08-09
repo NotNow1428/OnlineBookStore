@@ -1,4 +1,5 @@
 import fimg from '../assets/footer-logo.png';
+import Products from './Products';
 
 const Footer = () => {
     return (
@@ -16,10 +17,9 @@ const Footer = () => {
                 <div>
                     <p className='text-lg primary-text'>COMPANY</p>
                     <ul className='mt-3 flex flex-col gap-2 text-sm'>
+                        <li><a href="/">Home</a></li>
                         <li><a href="/about">About</a></li>
-                        <li><a href="#">Blog</a></li>
-                        <li><a href="#">Contact</a></li>
-                        <li><a href="#">Gallery</a></li>
+                        <li><a href="/products">Products</a></li>
                     </ul>
                 </div>
 

@@ -1,13 +1,13 @@
 import React from 'react'
 import Banner from './Banner'
-import TopSellers from './TopSellers'
 import Recommended from './Recommended'
+import LatestAdd from './LatestAdd'
 
 const Home = () => {
   return (
     <>
       <Banner />
-      <TopSellers />
+      <LatestAdd />
       <Recommended />
     </>
   )
