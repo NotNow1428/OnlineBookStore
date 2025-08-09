@@ -17,7 +17,7 @@ const userNavigation = [
 
 const mainNavigation = [
   { name: "Home", href: "/" },
-  { name: "Shop", href: "/shop" },
+  { name: "Products", href: "/Products" },
   { name: "Contact", href: "/contact" },
 ];
 
