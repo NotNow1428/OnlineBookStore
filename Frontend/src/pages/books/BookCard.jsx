@@ -27,7 +27,7 @@ const BookCard = ({ book }) => {
       {/* Book Info */}
       <div className="flex flex-col justify-between flex-1">
         {/* Title */}
-        <Link to={`/books/${book.id}`}>
+        <Link to={`/books/${book._id}`}>
           <h3 className="text-lg font-semibold hover:text-blue-400 mb-3">
             {book?.title}
           </h3>

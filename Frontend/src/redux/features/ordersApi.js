@@ -10,7 +10,7 @@ const ordersApi = createApi({
     }),
     tagTypes: ['Orders'],
     endpoints: (builder) => ({
-        createOrder: (builder.mutation) ({
+        createOrder: (builder.mutation)({
             query: (newOrder) => ({
                 url: "/",
                 method: "POST",
@@ -18,15 +18,21 @@ const ordersApi = createApi({
                 credentials: 'include',
             })
         }),
-        getOrderByEmail: (builder.query) ({
+        getOrderByEmail: (builder.query)({
             query: (email) => ({
                 url: `/email/${email}`
+            }),
+            providesTags: ['Orders']
+        }),
+        getOrderById: builder.query({
+            query: (id) => ({
+                url: `/${id}` 
             }),
             providesTags: ['Orders']
         })
     })
 })
 
-export const {useCreateOrderMutation, useGetOrderByEmailQuery} = ordersApi;
+export const { useCreateOrderMutation, useGetOrderByEmailQuery,useGetOrderByIdQuery } = ordersApi;
 
 export default ordersApi;

@@ -18,8 +18,7 @@ import AddBooks from "../pages/admin/AddBooks";
 import UpdateBook from "../pages/admin/UpdateBook";
 import Products from "../components/Products";
 import About from "../components/About";
-
-
+import OrderDetails from "../pages/books/OrderDetails"
 const router = createBrowserRouter([
     {
         path: "/",
@@ -60,6 +59,10 @@ const router = createBrowserRouter([
             {
                 path: "/books/:id",
                 element: <SingleBook />
+            },
+            {
+                path: "/orders/:id",
+                element: <OrderDetails />
             }
         ]
     },
