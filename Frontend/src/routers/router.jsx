@@ -19,6 +19,9 @@ import UpdateBook from "../pages/admin/UpdateBook";
 import Products from "../components/Products";
 import About from "../components/About";
 import OrderDetails from "../pages/books/OrderDetails"
+import SearchResults from "../pages/home/SearchResults";
+
+
 const router = createBrowserRouter([
     {
         path: "/",
@@ -63,6 +66,10 @@ const router = createBrowserRouter([
             {
                 path: "/orders/:id",
                 element: <OrderDetails />
+            },
+            {
+                path: "/search",
+                element: <SearchResults />
             }
         ]
     },

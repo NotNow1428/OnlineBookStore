@@ -5,13 +5,13 @@ const Book = require('../books/book.model');
 const router = express.Router();
 
 
-// Function to calculate admin stats
+//calculate admin stats
 router.get("/", async (req, res) => {
     try {
-        // 1. Total number of orders
+        //  Total orders
         const totalOrders = await Order.countDocuments();
 
-        // 2. Total sales (sum of all totalPrice from orders)
+        //  Total sales
         const totalSales = await Order.aggregate([
             {
                 $group: {
@@ -21,13 +21,11 @@ router.get("/", async (req, res) => {
             }
         ]);
 
-        // 4. Trending books statistics: 
+        //  Trending books statistics: 
         const trendingBooksCount = await Book.aggregate([
             { $match: { trending: true } },  
             { $count: "trendingBooksCount" } 
         ]);
-        
-        // count trending number
         const trendingBooks = trendingBooksCount.length > 0 ? trendingBooksCount[0].trendingBooksCount : 0;
 
         //  Total number of books
@@ -57,5 +55,24 @@ router.get("/", async (req, res) => {
         res.status(500).json({ message: "Failed to fetch admin stats" });
     }
 })
+
+// GET /api/books/search?query=someTerm
+router.get('/books/search', async (req, res) => {
+  const query = req.query.query || '';
+
+  try {
+    const books = await Book.find({
+      $or: [
+        { title: { $regex: query, $options: 'i' } },
+        { author: { $regex: query, $options: 'i' } }
+      ]
+    }).limit(50); // Limit to 50 results for performance
+
+    res.status(200).json(books);
+  } catch (error) {
+    console.error("Error during book search:", error);
+    res.status(500).json({ message: "Failed to perform search" });
+  }
+});
 
 module.exports = router;

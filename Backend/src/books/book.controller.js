@@ -12,7 +12,7 @@ const postABook = async (req, res) => {
          res.status(200).send({message: "failed to post book"})
 
     }   
-}
+};
 
 // for get book
 const getAllBooks = async(req, res) => {
@@ -24,7 +24,7 @@ try{
          res.status(200).send({message: "failed to get/fetch book"})
 
     }  
-}
+};
 
 //for single book
 const getSingleBook = async(req, res) => {
@@ -39,9 +39,8 @@ try{
         console.error("fetching books error",error);
          res.status(200).send({message: "failed to get/fetch book"})
 
-    } 
-    
-}
+    }   
+};
 
 //update/edit
 const updatedBook = async(req, res) => {
@@ -59,7 +58,7 @@ const updatedBook = async(req, res) => {
          res.status(200).send({message: "failed to update book"})
 
     } 
-}
+};
 
 //for delete
 const deleteBook = async (req, res) => {
@@ -77,11 +76,30 @@ const deleteBook = async (req, res) => {
          res.status(200).send({message: "failed to delete book"})
 
     } 
-}
+};
+
+// SEARCH books
+const searchBooks = async (req, res) => {
+  const query = req.query.query || '';
+  try {
+    const books = await Book.find({
+      $or: [
+        { title: { $regex: query, $options: 'i' } },
+        { author: { $regex: query, $options: 'i' } }
+      ]
+    }).limit(50);
+    res.status(200).json(books);
+  } catch (error) {
+    console.error("Error during book search:", error);
+    res.status(500).json({ message: "Failed to perform search" });
+  }
+};
+
 module.exports = {
     postABook,
     getAllBooks,
     getSingleBook,
     updatedBook,
-    deleteBook
+    deleteBook,
+    searchBooks
 }
