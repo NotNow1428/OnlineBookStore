@@ -1,6 +1,6 @@
 import { Link, Outlet } from 'react-router-dom';
 import { HiOutlineViewGridAdd } from 'react-icons/hi';
-import { MdOutlineManageHistory } from 'react-icons/md';
+import { MdOutlineManageHistory, MdOutlineShoppingCart } from 'react-icons/md';
 import fimg from '../../assets/footer-logo.png';
 import avatarImg from '../../assets/avatar.png'
 const AdminDashboard = () => {
@@ -31,6 +31,14 @@ const AdminDashboard = () => {
                             <Link to="/dashboard/manage-books" title="Manage Book" className="inline-flex items-center justify-center py-3 hover:text-gray-400 hover:bg-gray-700 focus:text-gray-400 focus:bg-gray-700 rounded-lg">
                                 <span className="sr-only"></span>
                                 <MdOutlineManageHistory className="h-6 w-6" />
+                            </Link>
+
+                            {/* New Manage Orders Link */}
+                            <Link
+                                to="/dashboard/manage-orders"
+                                title="Manage Orders"
+                                className="inline-flex items-center justify-center py-3 hover:text-gray-400 hover:bg-gray-700 focus:text-gray-400 focus:bg-gray-700 rounded-lg">
+                                <MdOutlineShoppingCart className="h-6 w-6" />
                             </Link>
                         </nav>
 

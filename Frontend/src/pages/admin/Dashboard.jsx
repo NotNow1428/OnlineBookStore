@@ -27,7 +27,7 @@ const Dashboard = () => {
         fetchData();
 
     }, []);
-    console.log(data)
+    // console.log(data)
     if (loading) return <Loading />
     return (
         <section className="grid md:grid-cols-2 xl:grid-cols-4 gap-6">
