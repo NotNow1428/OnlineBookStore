@@ -55,6 +55,9 @@ const OrderPage = () => {
                                 <p className="text-purple-400 font-bold text-lg">
                                     Total: NPR. {order.totalPrice}
                                 </p>
+                                <p className={`font-semibold ${order.isApproved ? 'text-green-400' : 'text-yellow-400'}`}>
+                                    {order.isApproved ? 'Success' : 'Pending'}
+                                </p>
                             </div>
 
                             {/* Address */}
@@ -79,10 +82,11 @@ const OrderPage = () => {
 
                             {/* Actions */}
                             <div className="mt-5 flex justify-end">
-                                <Link to ={`/orders/${order._id}`}>
-                                <button className="bg-purple-600 hover:bg-purple-700 px-4 py-2 rounded-lg text-white transition">
-                                    View Details
-                                </button></Link>
+                                <Link to={`/orders/${order._id}`}>
+                                    <button className="bg-purple-600 hover:bg-purple-700 px-4 py-2 rounded-lg text-white transition">
+                                        View Details
+                                    </button>
+                                </Link>
                             </div>
                         </div>
                     ))}

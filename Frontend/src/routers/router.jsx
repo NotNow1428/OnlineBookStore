@@ -20,8 +20,7 @@ import Products from "../components/Products";
 import About from "../components/About";
 import OrderDetails from "../pages/books/OrderDetails"
 import SearchResults from "../pages/home/SearchResults";
-import ManageOrders from "../pages/admin/ManageOrders";
-
+import AdminOrders from "../pages/admin/AdminOrders";
 
 const router = createBrowserRouter([
     {
@@ -102,7 +101,7 @@ const router = createBrowserRouter([
             },
             {
                 path: "manage-orders",
-                element: <AdminRoute><ManageOrders /></AdminRoute>
+                element: <AdminRoute><AdminOrders/></AdminRoute>
             }
         ]
     }

@@ -39,11 +39,19 @@ const OrderDetails = () => {
           <p className="text-gray-300">
             {order.address.city}, {order.address.state}, {order.address.country} - {order.address.zipcode}
           </p>
+
         </div>
 
         {/* Product List */}
+        {/* Product List */}
         <div className="mt-6">
-          <h2 className="text-lg font-semibold text-white mb-3">Ordered Products</h2>
+          <div className="flex justify-between items-center mb-3">
+            <h2 className="text-lg font-semibold text-white">Ordered Products</h2>
+            <p className={`font-semibold ${order.isApproved ? 'text-green-400' : 'text-yellow-400'}`}>
+              {order.isApproved ? 'Success' : 'Pending'}
+            </p>
+          </div>
+
           <div className="space-y-4">
             {order.productIds.map((productId) => (
               <OrderProduct key={productId} productId={productId} />
