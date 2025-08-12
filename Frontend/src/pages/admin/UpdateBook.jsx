@@ -14,8 +14,7 @@ const UpdateBook = () => {
     const navigate = useNavigate();
     const { data: bookData, isLoading, isError, refetch } = useFetchBookByIdQuery(id);
     const { register, handleSubmit, setValue } = useForm();
-
-    const [file, setFile] = useState(null);
+    const [imageFileName, setImageFileName] = useState(''); // track filename
 
     useEffect(() => {
         if (bookData) {
@@ -25,41 +24,29 @@ const UpdateBook = () => {
             setValue('category', bookData.category);
             setValue('trending', bookData.trending);
             setValue('Price', bookData.Price);
+            setValue('coverImage', bookData.coverImage);
+            setImageFileName(bookData.coverImage); // set initial file name
         }
     }, [bookData, setValue]);
 
     const handleFileChange = (e) => {
-        setFile(e.target.files[0]);
+        const file = e.target.files[0];
+        if (file) {
+            setImageFileName(file.name); // update file name state
+        }
     };
 
     const onSubmit = async (data) => {
+        const updateBookData = {
+            title: data.title,
+            author: data.author,
+            description: data.description,
+            category: data.category,
+            trending: data.trending,
+            Price: Number(data.Price),
+            coverImage: imageFileName, // send file name here
+        };
         try {
-            let imageUrl = bookData.coverImage;
-
-            if (file) {
-                const formData = new FormData();
-                formData.append('image', file);
-
-
-                const uploadRes = await axios.post(`${getBaseUrl()}/api/upload`, formData, {
-                    headers: {
-                        'Content-Type': 'multipart/form-data',
-                        'Authorization': `Bearer ${localStorage.getItem('token')}`
-                    }
-                });
-
-                imageUrl = uploadRes.data.url;
-            }
-
-            const updateBookData = {
-                title: data.title,
-                description: data.description,
-                category: data.category,
-                trending: data.trending,
-                Price: Number(data.Price),
-                coverImage: imageUrl,
-            };
-
             await axios.put(`${getBaseUrl()}/api/books/edit/${id}`, updateBookData, {
                 headers: {
                     'Content-Type': 'application/json',
@@ -99,7 +86,12 @@ const UpdateBook = () => {
                     placeholder="Enter book title"
                     register={register}
                 />
-
+                <InputField
+                    label="Author"
+                    name="author"
+                    placeholder="Enter book author"
+                    register={register}
+                />
                 <InputField
                     label="Description"
                     name="description"
@@ -107,7 +99,6 @@ const UpdateBook = () => {
                     type="textarea"
                     register={register}
                 />
-
                 <SelectField
                     label="Category"
                     name="category"
@@ -121,8 +112,6 @@ const UpdateBook = () => {
                     ]}
                     register={register}
                 />
-
-                {/* Trending Checkbox */}
                 <div className="mb-4">
                     <label className="inline-flex items-center">
                         <input
@@ -133,7 +122,6 @@ const UpdateBook = () => {
                         <span className="ml-2 text-sm font-semibold text-gray-700">Trending</span>
                     </label>
                 </div>
-
                 <InputField
                     label="Price"
                     name="Price"
@@ -141,34 +129,27 @@ const UpdateBook = () => {
                     placeholder="Price"
                     register={register}
                 />
-
-                {/* File Upload Styled */}
                 <div className="mb-4">
                     <label className="block text-sm font-semibold text-gray-700 mb-2">
                         Cover Image
                     </label>
-
                     <input
                         type="file"
-                        accept="image/*"
+                        accept="image/png"
                         onChange={handleFileChange}
                         className="block w-full text-sm text-gray-500
-               file:mr-4 file:py-2 file:px-4
-               file:rounded-full file:border-0
-               file:text-sm file:font-semibold
-               file:bg-blue-50 file:text-blue-700
-               hover:file:bg-blue-100
-               cursor-pointer"
+                            file:mr-4 file:py-2 file:px-4
+                            file:rounded-full file:border-0
+                            file:text-sm file:font-semibold
+                            file:bg-blue-50 file:text-blue-700
+                            hover:file:bg-blue-100
+                            cursor-pointer"
                     />
-                    {bookData?.coverImage && (
-                        <img
-                            src={`${getBaseUrl()}/uploads/${bookData.coverImage}`}
-                            alt="Current cover"
-                            className="mt-2 w-32 h-40 object-cover rounded"
-                        />
-                    )}
+                    {/* Show current selected file name */}
+                    <p className="mt-2 text-sm text-gray-600">
+                      Selected Image: {imageFileName || 'No image selected'}
+                    </p>
                 </div>
-
 
                 <button
                     type="submit"
