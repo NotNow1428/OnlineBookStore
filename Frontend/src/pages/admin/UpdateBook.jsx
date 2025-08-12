@@ -34,13 +34,13 @@ const UpdateBook = () => {
 
     const onSubmit = async (data) => {
         try {
-            let imageUrl = bookData.coverImage; // keep old image if new not uploaded
+            let imageUrl = bookData.coverImage;
 
             if (file) {
                 const formData = new FormData();
                 formData.append('image', file);
 
-                // Assuming your backend has an /upload endpoint
+
                 const uploadRes = await axios.post(`${getBaseUrl()}/api/upload`, formData, {
                     headers: {
                         'Content-Type': 'multipart/form-data',
@@ -48,7 +48,7 @@ const UpdateBook = () => {
                     }
                 });
 
-                imageUrl = uploadRes.data.url; // Adjust according to backend response
+                imageUrl = uploadRes.data.url;
             }
 
             const updateBookData = {
@@ -147,6 +147,7 @@ const UpdateBook = () => {
                     <label className="block text-sm font-semibold text-gray-700 mb-2">
                         Cover Image
                     </label>
+
                     <input
                         type="file"
                         accept="image/*"
@@ -161,7 +162,7 @@ const UpdateBook = () => {
                     />
                     {bookData?.coverImage && (
                         <img
-                            src={bookData.coverImage}
+                            src={`${getBaseUrl()}/uploads/${bookData.coverImage}`}
                             alt="Current cover"
                             className="mt-2 w-32 h-40 object-cover rounded"
                         />

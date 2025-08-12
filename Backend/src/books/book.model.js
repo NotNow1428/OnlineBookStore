@@ -24,10 +24,9 @@ const bookSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
-  Price: Number,
-  createdAt: {
-    type: Date,
-    default: Date.now,
+  Price: {
+    type: Number,
+    required: true
   }
 },
   {

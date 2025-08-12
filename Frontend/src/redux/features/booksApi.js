@@ -23,7 +23,7 @@ const booksApi = createApi({
             providesTags: ["Books"]
 
         }),
-        //forsinglebook
+        //for single book
         fetchBookById: builder.query({
             query: (id) => `/${id}`,
             providesTags: (results, error, id) => [{ type: "Books", id }],

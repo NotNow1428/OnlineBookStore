@@ -11,7 +11,7 @@ const InputField = ({ label, name, type = 'text', register, placeholder }) => {
         placeholder={placeholder}
       />
     </div>
-  );
+  );  
 };
 
 export default InputField;
