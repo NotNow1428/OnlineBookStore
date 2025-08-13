@@ -22,7 +22,7 @@ const AdminOrders = () => {
     if (result.isConfirmed) {
       try {
         await updateStatus({ id: orderId, status: 'approved' }).unwrap();
-        await refetch(); // Refresh the list after approval
+        await refetch(); 
         Swal.fire({
           icon: 'success',
           title: 'Order Approved!',
