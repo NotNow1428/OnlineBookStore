@@ -43,13 +43,15 @@ const OrderDetails = () => {
         </div>
 
         {/* Product List */}
-        {/* Product List */}
         <div className="mt-6">
           <div className="flex justify-between items-center mb-3">
             <h2 className="text-lg font-semibold text-white">Ordered Products</h2>
-            <p className={`font-semibold ${order.isApproved ? 'text-green-400' : 'text-yellow-400'}`}>
-              {order.isApproved ? 'Success' : 'Pending'}
-            </p>
+            <span className={`px-2 py-1 rounded text-sm font-semibold ${order.status === 'approved' ? 'bg-green-100 text-green-800' :
+                order.status === 'pending' ? 'bg-yellow-100 text-yellow-800' :
+                  'bg-red-100 text-red-800'
+              }`}>
+              {order.status.toUpperCase()}
+            </span>
           </div>
 
           <div className="space-y-4">

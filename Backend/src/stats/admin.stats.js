@@ -4,15 +4,14 @@ const Order = require('../orders/order.model');
 const Book = require('../books/book.model');
 const router = express.Router();
 
-
-//calculate admin stats
 router.get("/", async (req, res) => {
     try {
-        //  Total orders
+        // Total orders
         const totalOrders = await Order.countDocuments();
 
-        //  Total sales
+        // Total sales (only approved orders)
         const totalSales = await Order.aggregate([
+            { $match: { status: 'approved' } },
             {
                 $group: {
                     _id: null,

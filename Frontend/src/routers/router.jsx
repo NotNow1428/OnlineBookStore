@@ -21,6 +21,7 @@ import About from "../components/About";
 import OrderDetails from "../pages/books/OrderDetails"
 import SearchResults from "../pages/home/SearchResults";
 import AdminOrders from "../pages/admin/AdminOrders";
+import AdminOrdersDetails from "../pages/admin/AdminOrdersDetails";
 
 const router = createBrowserRouter([
     {
@@ -101,7 +102,11 @@ const router = createBrowserRouter([
             },
             {
                 path: "manage-orders",
-                element: <AdminRoute><AdminOrders/></AdminRoute>
+                element: <AdminRoute><AdminOrders /></AdminRoute>
+            },
+            {
+                path: "/dashboard/orders/:id",
+                element: <AdminRoute><AdminOrdersDetails /></AdminRoute>
             }
         ]
     }

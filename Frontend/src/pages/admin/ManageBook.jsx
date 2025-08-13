@@ -1,82 +1,88 @@
-import React from 'react'
+import React from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useDeleteBookMutation, useFetchAllBooksQuery } from '../../redux/features/booksApi';
+import Swal from 'sweetalert2';
 
 const ManageBook = () => {
     const navigate = useNavigate();
-    const { data: books, refetch } = useFetchAllBooksQuery();
+    const { data: books, refetch, isLoading, isError } = useFetchAllBooksQuery();
     const [deleteBook] = useDeleteBookMutation();
 
     const handleDeleteBook = async (id) => {
         try {
             await deleteBook(id).unwrap();
-            alert('Book deleted successfully!');
+            Swal.fire({
+                icon: 'success',
+                title: 'Book deleted!',
+                timer: 1500,
+                showConfirmButton: false,
+            });
             refetch();
         } catch (error) {
-            console.error('Failed to delete book:', error.message);
-            alert('Failed to delete book. Please try again.');
+            Swal.fire({
+                icon: 'error',
+                title: 'Delete failed',
+                text: error?.data?.message || 'Something went wrong',
+            });
         }
     };
 
-    const handleEditClick = (id) => {
-        navigate(`dashboard/edit-book/${id}`);
-    };
+    if (isLoading) return <div className="text-center text-gray-300 mt-10">Loading...</div>;
+    if (isError) return <div className="text-center text-red-500 mt-10">Error fetching books</div>;
 
     return (
-        <section className="py-6 px-6 bg-blueGray-50 w-full">
-            <div className="mt-4">
-                <div className="relative flex flex-col min-w-0 break-words bg-white w-full mb-6 shadow-lg rounded">
-                    <div className="rounded-t mb-0 px-4 py-3 border-0">
-                        <div className="flex flex-wrap items-center">
-                            <div className="relative w-full px-4 max-w-full flex-grow flex-1">
-                                <h3 className="font-semibold text-base text-blueGray-700">All Books</h3>
-                            </div>
-                        </div>
-                    </div>
+        <div className="max-w-7xl mx-auto p-6">
+            <h2 className="text-3xl font-bold text-gray-800 mb-6">Manage Books</h2>
 
-                    {/* Scrollable Table Section */}
-                    <div className="block w-full overflow-x-auto max-h-[500px] overflow-y-scroll">
-                        <table className="items-center bg-transparent w-full border-collapse">
-                            <thead className="sticky top-0 bg-white z-10">
-                                <tr>
-                                    <th className="px-6 py-3 text-xs uppercase font-semibold text-left text-blueGray-500 border-b border-blueGray-100">#</th>
-                                    <th className="px-6 py-3 text-xs uppercase font-semibold text-left text-blueGray-500 border-b border-blueGray-100">Book Title</th>
-                                    <th className="px-6 py-3 text-xs uppercase font-semibold text-left text-blueGray-500 border-b border-blueGray-100">Category</th>
-                                    <th className="px-6 py-3 text-xs uppercase font-semibold text-left text-blueGray-500 border-b border-blueGray-100">Price</th>
-                                    <th className="px-6 py-3 text-xs uppercase font-semibold text-left text-blueGray-500 border-b border-blueGray-100">Actions</th>
+            <div className="overflow-x-auto">
+                <table className="min-w-full bg-slate-800 border border-slate-700 rounded-lg">
+                    <thead>
+                        <tr className="bg-slate-700 text-gray-300 text-center">
+                            <th className="px-4 py-3">#</th>
+                            <th className="px-4 py-3">Book Title</th>
+                            <th className="px-4 py-3">Category</th>
+                            <th className="px-4 py-3">Price (NPR)</th>
+                            <th className="px-4 py-3">Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {books?.length === 0 ? (
+                            <tr>
+                                <td colSpan="5" className="text-center text-gray-400 py-4">
+                                    No books found.
+                                </td>
+                            </tr>
+                        ) : (
+                            books.map((book, index) => (
+                                <tr
+                                    key={book._id}
+                                    className="border-b border-slate-700 hover:bg-slate-700/50 transition text-center"
+                                >
+                                    <td className="px-4 py-3 text-gray-300">{index + 1}</td>
+                                    <td className="px-4 py-3 text-gray-300">{book.title}</td>
+                                    <td className="px-4 py-3 text-gray-300 capitalize">{book.category}</td>
+                                    <td className="px-4 py-3 text-purple-400 font-bold">{book.Price}</td>
+                                    <td className="px-4 py-2 flex justify-center gap-2">
+                                        <Link
+                                            to={`/dashboard/edit-book/${book._id}`}
+                                            className="bg-blue-500 hover:bg-blue-600 px-3 py-1 rounded text-white"
+                                        >
+                                            Edit
+                                        </Link>
+                                        <button
+                                            onClick={() => handleDeleteBook(book._id)}
+                                            className="bg-red-500 hover:bg-red-600 px-3 py-1 rounded text-white"
+                                        >
+                                            Delete
+                                        </button>
+                                    </td>
                                 </tr>
-                            </thead>
-                            <tbody>
-                                {books && books.map((book, index) => (
-                                    <tr key={book._id}>
-                                        <td className="px-6 py-4 text-sm border-b border-blueGray-100">{index + 1}</td>
-                                        <td className="px-6 py-4 text-sm border-b border-blueGray-100">{book.title}</td>
-                                        <td className="px-6 py-4 text-sm border-b border-blueGray-100">{book.category}</td>
-                                        <td className="px-6 py-4 text-sm border-b border-blueGray-100">NPR.{book.Price}</td>
-                                        <td className="px-6 py-4 text-sm border-b border-blueGray-100">
-                                            <div className="flex space-x-2">
-                                                <Link
-                                                    to={`/dashboard/edit-book/${book._id}`}
-                                                    className="text-indigo-600 hover:text-indigo-800 hover:underline px-2"
-                                                >
-                                                    Edit
-                                                </Link>
-                                                <button
-                                                    onClick={() => handleDeleteBook(book._id)}
-                                                    className="bg-red-500 text-white px-4 py-1 rounded-full text-sm hover:bg-red-600"
-                                                >
-                                                    Delete
-                                                </button>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                ))}
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
+                            ))
+                        )}
+                    </tbody>
+                </table>
             </div>
-        </section>
+        </div>
     );
 };
 

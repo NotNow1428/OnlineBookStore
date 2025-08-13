@@ -1,72 +1,135 @@
-import React, { useState, useEffect } from 'react';
-import axios from 'axios';
-import Loading from '../../components/Loading';
-import getBaseUrl from '../../utils/baseURL';
+import React from 'react';
+import { useGetAllOrdersQuery, useUpdateOrderStatusMutation } from '../../redux/features/ordersApi';
+import Swal from 'sweetalert2';
+import { useNavigate } from 'react-router-dom';
 
 const AdminOrders = () => {
-  const [loading, setLoading] = useState(true);
-  const [orders, setOrders] = useState([]);
+  const navigate = useNavigate();
+  const { data: orders = [], isLoading, isError, refetch } = useGetAllOrdersQuery();
+  const [updateStatus] = useUpdateOrderStatusMutation();
 
-  useEffect(() => {
-    const fetchOrders = async () => {
+  const handleApprove = async (orderId) => {
+    const result = await Swal.fire({
+      title: 'Are you sure?',
+      text: "You are about to approve this order!",
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#10B981',
+      cancelButtonColor: '#6B7280',
+      confirmButtonText: 'Yes, approve it!'
+    });
+
+    if (result.isConfirmed) {
       try {
-        const res = await axios.get(`${getBaseUrl()}/api/admin/orders`, {
-          headers: {
-            'Authorization': `Bearer ${localStorage.getItem('token')}`,
-            'Content-Type': 'application/json',
-          },
+        await updateStatus({ id: orderId, status: 'approved' }).unwrap();
+        await refetch(); // Refresh the list after approval
+        Swal.fire({
+          icon: 'success',
+          title: 'Order Approved!',
+          timer: 1500,
+          showConfirmButton: false,
         });
-        console.log("API response:", res.data);
-        setOrders(Array.isArray(res.data) ? res.data : res.data.orders || []);
       } catch (error) {
-        console.error("Error fetching admin orders:", error);
-      } finally {
-        setLoading(false);
+        Swal.fire({
+          icon: 'error',
+          title: 'Error approving order',
+          text: error?.data?.message || 'Something went wrong',
+        });
       }
-    };
+    }
+  };
 
-    fetchOrders();
-  }, []);
+  const handleView = (orderId) => {
+    navigate(`/dashboard/orders/${orderId}`);
+  };
 
-  if (loading) return <Loading />;
+  if (isLoading) return <div className="text-center text-gray-300 mt-10">Loading...</div>;
+  if (isError) return <div className="text-center text-red-500 mt-10">Error fetching orders</div>;
+
+  const sortedOrders = [...orders].sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
+
+  const getStatusBadge = (status) => {
+    switch(status) {
+      case 'approved':
+        return <span className="bg-green-900/30 text-green-400 px-2 py-1 rounded-full text-xs font-semibold">Approved</span>;
+      default:
+        return <span className="bg-yellow-900/30 text-yellow-400 px-2 py-1 rounded-full text-xs font-semibold">Pending</span>;
+    }
+  };
 
   return (
-    <div className="p-6">
-      {orders.length === 0 ? (
-        <p>No orders found.</p>
-      ) : (
-        <table className="w-full table-auto border-collapse border border-gray-300">
+    <div className="max-w-7xl mx-auto p-6">
+      <h2 className="text-3xl font-bold text-gray-800 mb-6">All Orders</h2>
+
+      <div className="overflow-x-auto">
+        <table className="min-w-full bg-slate-800 border border-slate-700 rounded-lg">
           <thead>
-            <tr className="bg-gray-100">
-              <th className="border border-gray-300 p-2">Order ID</th>
-              <th className="border border-gray-300 p-2">User Email</th>
-              <th className="border border-gray-300 p-2">Total Amount</th>
-              <th className="border border-gray-300 p-2">Status</th>
-              <th className="border border-gray-300 p-2">Order Date</th>
+            <tr className="bg-slate-700 text-gray-300">
+              <th className="px-4 py-3 text-left">#</th>
+              <th className="px-4 py-3 text-left">Customer</th>
+              <th className="px-4 py-3 text-left">Email</th>
+              <th className="px-4 py-3 text-center">Items</th>
+              <th className="px-4 py-3 text-right">Total (NPR)</th>
+              <th className="px-4 py-3 text-center">Status</th>
+              <th className="px-4 py-3 text-center">Date</th>
+              <th className="px-4 py-3 text-center">Actions</th>
             </tr>
           </thead>
           <tbody>
-            {Array.isArray(orders) ? (
-              orders.map((order) => (
-                <tr key={order._id} className="hover:bg-gray-50">
-                  <td className="border border-gray-300 p-2">{order._id}</td>
-                  <td className="border border-gray-300 p-2">{order.userEmail}</td>
-                  <td className="border border-gray-300 p-2">NPR. {order.totalAmount}</td>
-                  <td className="border border-gray-300 p-2">{order.status}</td>
-                  <td className="border border-gray-300 p-2">{new Date(order.createdAt).toLocaleString()}</td>
-                </tr>
-              ))
-            ) : (
+            {sortedOrders.length === 0 ? (
               <tr>
-                
-                <td colSpan="5" className="text-center p-4">
-                  No valid orders data found.
+                <td colSpan="8" className="text-center text-gray-400 py-4">
+                  No orders found.
                 </td>
               </tr>
+            ) : (
+              sortedOrders.map((order, index) => (
+                <tr
+                  key={order._id}
+                  className="border-b border-slate-700 hover:bg-slate-700/50 transition"
+                >
+                  <td className="px-4 py-3 text-gray-300">{index + 1}</td>
+                  <td className="px-4 py-3 text-gray-300">
+                    <div className="font-medium">{order.name}</div>
+                    <div className="text-sm text-gray-400">{order.phone}</div>
+                  </td>
+                  <td className="px-4 py-3 text-gray-300">{order.email}</td>
+                  <td className="px-4 py-3 text-center text-gray-300">
+                    {order.productIds?.length || 0}
+                  </td>
+                  <td className="px-4 py-3 text-right font-bold text-purple-400">
+                    {order.totalPrice?.toLocaleString()}
+                  </td>
+                  <td className="px-4 py-3 text-center">
+                    {getStatusBadge(order.status)}
+                  </td>
+                  <td className="px-4 py-3 text-center text-gray-400 text-sm">
+                    {new Date(order.createdAt).toLocaleDateString()}
+                  </td>
+                  <td className="px-4 py-3 text-center">
+                    <div className="flex justify-center gap-2">
+                      <button
+                        onClick={() => handleView(order._id)}
+                        className="bg-blue-600 hover:bg-blue-700 px-3 py-1 rounded text-white text-sm"
+                      >
+                        Details
+                      </button>
+                      {order.status === 'pending' && (
+                        <button
+                          onClick={() => handleApprove(order._id)}
+                          className="bg-green-600 hover:bg-green-700 px-3 py-1 rounded text-white text-sm"
+                        >
+                          Approve
+                        </button>
+                      )}
+                    </div>
+                  </td>
+                </tr>
+              ))
             )}
           </tbody>
         </table>
-      )}
+      </div>
     </div>
   );
 };

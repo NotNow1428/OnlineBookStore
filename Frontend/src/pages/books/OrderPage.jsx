@@ -4,8 +4,14 @@ import { useAuth } from '../../firebase/Authcontext';
 import { Link } from 'react-router-dom';
 
 const OrderPage = () => {
+    // All hooks must be called unconditionally at the top
     const { currentUser } = useAuth();
+    const { data: orders = [], isLoading, isError } = useGetOrderByEmailQuery(
+        currentUser?.email,
+        { skip: !currentUser } // Skip the query if there's no user
+    );
 
+    // Early returns after all hooks
     if (!currentUser) {
         return (
             <div className="text-center text-gray-300 mt-10 text-lg">
@@ -13,8 +19,6 @@ const OrderPage = () => {
             </div>
         );
     }
-
-    const { data: orders = [], isLoading, isError } = useGetOrderByEmailQuery(currentUser.email);
 
     if (isLoading) return <div className="text-center mt-10 text-gray-300">Loading...</div>;
     if (isError) return <div className="text-center mt-10 text-red-500">Error getting orders data</div>;
@@ -55,9 +59,13 @@ const OrderPage = () => {
                                 <p className="text-purple-400 font-bold text-lg">
                                     Total: NPR. {order.totalPrice}
                                 </p>
-                                <p className={`font-semibold ${order.isApproved ? 'text-green-400' : 'text-yellow-400'}`}>
-                                    {order.isApproved ? 'Success' : 'Pending'}
-                                </p>
+                                <span className={`px-2 py-1 rounded text-sm font-semibold ${
+                                    order.status === 'approved' ? 'bg-green-100 text-green-800' :
+                                    order.status === 'pending' ? 'bg-yellow-100 text-yellow-800' :
+                                    'bg-red-100 text-red-800'
+                                }`}>
+                                    {order.status.toUpperCase()}
+                                </span>
                             </div>
 
                             {/* Address */}
