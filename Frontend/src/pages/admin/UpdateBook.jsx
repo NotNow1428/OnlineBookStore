@@ -22,7 +22,7 @@ const UpdateBook = () => {
             setValue('author', bookData.author);
             setValue('description', bookData.description);
             setValue('category', bookData.category);
-            setValue('trending', bookData.trending);
+            // setValue('trending', bookData.trending);
             setValue('Price', bookData.Price);
             setValue('coverImage', bookData.coverImage);
             setImageFileName(bookData.coverImage);
@@ -42,7 +42,7 @@ const UpdateBook = () => {
             author: data.author,
             description: data.description,
             category: data.category,
-            trending: data.trending,
+            // trending: data.trending,
             Price: Number(data.Price),
             coverImage: imageFileName,
         };
@@ -118,14 +118,14 @@ const UpdateBook = () => {
                     register={register}
                     className="bg-slate-700 text-gray-200"
                 />
-                <div className="mb-4 flex items-center">
+                {/* <div className="mb-4 flex items-center">
                     <input
                         type="checkbox"
                         {...register('trending')}
                         className="rounded text-blue-500 focus:ring focus:ring-offset-2 focus:ring-blue-400"
                     />
                     <span className="ml-2 text-sm font-semibold text-gray-300">Trending</span>
-                </div>
+                </div> */}
                 <InputField
                     label="Price"
                     name="Price"

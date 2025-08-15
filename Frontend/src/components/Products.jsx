@@ -1,17 +1,12 @@
 import React, { useState } from 'react';
 import BookCard from '../../src/pages/books/BookCard';
-
-// Swiper imports
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Pagination, Navigation, Grid } from 'swiper/modules';
 import 'swiper/css';
 import 'swiper/css/pagination';
 import 'swiper/css/navigation';
 import 'swiper/css/grid';
-
 import { useFetchAllBooksQuery } from '../../src/redux/features/booksApi';
-
-// Icons
 import { FaBusinessTime, FaRocket, FaGhost, FaMountain, FaHeart } from "react-icons/fa";
 
 const iconSize = 28;
@@ -29,7 +24,7 @@ const Products = () => {
   const [sortOption, setSortOption] = useState("Relevant");
   const { data: books = [] } = useFetchAllBooksQuery();
 
-  // Filter books: showing all book yeti kunae choose gareko xoina bhne
+  // show all books
   let filteredBooks = selectedCategory
     ? books.filter(
       (book) =>
@@ -37,7 +32,7 @@ const Products = () => {
     )
     : books;
 
-  // Apply sorting
+  // Apply sorting on pricebase 
   if (sortOption === "PriceLowHigh") {
     filteredBooks = [...filteredBooks].sort((a, b) => a.Price - b.Price);
   } else if (sortOption === "PriceHighLow") {
@@ -46,6 +41,7 @@ const Products = () => {
 
   return (
     <div className="py-10">
+
       {/* Categories */}
       <h2 className="text-3xl font-semibold mb-8">Categories:</h2>
       <div className="flex gap-8 mb-12 flex-wrap">

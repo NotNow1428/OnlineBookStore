@@ -2,7 +2,6 @@ import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { HiMiniBars3CenterLeft } from "react-icons/hi2";
 import { HiOutlineUser, HiOutlineShoppingCart, HiOutlineSearch } from "react-icons/hi";
-
 import { useSelector } from "react-redux";
 import fimg from '../assets/footer-logo.png';
 import { useAuth } from "../firebase/Authcontext";
@@ -39,7 +38,7 @@ const Navbar = () => {
       // Navigate to your search results page, passing the search term
       navigate(`/search?q=${encodeURIComponent(searchTerm.trim())}`);
       setSearchTerm("");
-      setIsMobileMenuOpen(false); // close mobile menu on search submit
+      setIsMobileMenuOpen(false);
     }
   };
 

@@ -1,7 +1,5 @@
 import React from 'react';
 import BookCard from '../books/BookCard';
-
-// Swiper imports
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Pagination, Navigation } from 'swiper/modules';
 import 'swiper/css';
@@ -13,7 +11,7 @@ import { useFetchAllBooksQuery } from '../../redux/features/booksApi';
 const LatestAdd = () => {
   const { data: books = [] } = useFetchAllBooksQuery();
 
-  // Sort books by newest first
+  // sort on new
   const sortedBooks = [...books].sort(
     (a, b) => new Date(b.createdAt) - new Date(a.createdAt)
   );

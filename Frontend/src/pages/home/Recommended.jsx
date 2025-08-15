@@ -1,49 +1,16 @@
-import React, { useMemo } from 'react';
+import React, { useState, useEffect } from 'react';
 import BookCard from '../books/BookCard';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Pagination, Navigation } from 'swiper/modules';
 import 'swiper/css';
 import 'swiper/css/pagination';
 import 'swiper/css/navigation';
-import { useFetchAllBooksQuery } from '../../redux/features/booksApi';
-import { useGetAllOrdersQuery } from '../../redux/features/ordersApi';
+import { useGetPopularBooksQuery } from '../../redux/features/booksApi';
 
 const Recommended = () => {
-  const { data: books = [], isLoading: booksLoading } = useFetchAllBooksQuery();
-  const { data: orders = [], isLoading: ordersLoading } = useGetAllOrdersQuery();
+  const { data: popularBooks = [], isLoading, isError, error } = useGetPopularBooksQuery();
 
-  // --- Order-Based Recommendation Algorithm ---
-  const recommendedBooks = useMemo(() => {
-    if (!books?.length || !orders?.length) return [];
-
-    // Step 1: Calculate book popularity from orders
-    const bookPopularity = {};
-
-    orders.forEach(order => {
-      if (order?.items && Array.isArray(order.items)) {
-        order.items.forEach(item => {
-          const bookId = item?.bookId;
-          if (bookId) {
-            bookPopularity[bookId] = (bookPopularity[bookId] || 0) + (item.quantity || 1);
-          }
-        });
-      }
-    });
-
-    // Step 2: Map books to their popularity
-    const booksWithPopularity = books.map(book => ({
-      ...book,
-      popularity: bookPopularity[book._id] || 0,
-    }));
-
-    // Step 3: Sort by popularity and return top recommendations
-    return booksWithPopularity
-      .sort((a, b) => b.popularity - a.popularity)
-      .slice(0, 10);
-
-  }, [books, orders]);
-
-  if (booksLoading || ordersLoading) {
+  if (isLoading) {
     return (
       <div className='py-16'>
         <h2 className='text-3xl font-semibold mb-6'>Recommended Books</h2>
@@ -54,10 +21,32 @@ const Recommended = () => {
     );
   }
 
+  if (isError) {
+    return (
+      <div className='py-16'>
+        <h2 className='text-3xl font-semibold mb-6'>Recommended Books</h2>
+        <div className="text-center text-red-500 py-8">
+          <p>{error?.data?.message || 'Failed to load recommended books'}</p>
+        </div>
+      </div>
+    );
+  }
+
+  if (!popularBooks || popularBooks.length === 0) {
+    return (
+      <div className='py-16'>
+        <h2 className='text-3xl font-semibold mb-6'>Recommended Books</h2>
+        <div className="text-center text-gray-500 py-8">
+          <p>No recommended books available at the moment.</p>
+        </div>
+      </div>
+    );
+  }
+
   return (
     <div className='py-16'>
       <h2 className='text-3xl font-semibold mb-6'>Recommended Books</h2>
-
+      
       <Swiper
         slidesPerView={1}
         spaceBetween={30}
@@ -71,7 +60,7 @@ const Recommended = () => {
         modules={[Pagination, Navigation]}
         className="mySwiper"
       >
-        {recommendedBooks.map((book, index) => (
+        {popularBooks.map((book, index) => (
           <SwiperSlide key={index}>
             <BookCard book={book} />
           </SwiperSlide>

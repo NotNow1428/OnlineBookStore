@@ -27,13 +27,14 @@ const CheckoutPage = () => {
       email: currentUser?.email,
       address: {
         city: data.city,
-        country: "Nepal", // ✅ Always Nepal
+        country: "Nepal",
         state: data.state,
-        zipcode: data.zipcode
+        zipcode: data.zipcode,
+        address: data.address
       },
       phone: data.phone,
-      productIds: cartItems.map(item => item?._id),
-      totalPrice: totalPrice,
+      productIds: cartItems.map(item => item?._id).filter(id => id),
+      totalPrice: parseFloat(totalPrice),
     };
 
     try {
@@ -52,7 +53,13 @@ const CheckoutPage = () => {
 
     } catch (error) {
       console.error("Error placing an order", error);
-      alert("Failed to place an order");
+      Swal.fire({
+        title: "Error",
+        text: error?.data?.message || "Failed to place an order",
+        icon: "error",
+        confirmButtonColor: "#3085d6",
+        confirmButtonText: "OK"
+      });
     }
   };
 

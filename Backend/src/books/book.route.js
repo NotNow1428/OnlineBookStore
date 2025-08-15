@@ -1,16 +1,26 @@
 const express = require('express');
-const Book = require('./book.model');
-const { postABook, getAllBooks, getSingleBook, updatedBook, deleteBook, searchBooks } = require('./book.controller');
+const {
+    postABook,
+    getAllBooks,
+    getSingleBook,
+    updatedBook,
+    deleteBook,
+    searchBooks,
+    getPopularBooks,
+} = require('./book.controller');
+
 const verifyAdminToken = require('../middleware/verifyAdminToken');
+
 const router = express.Router();
 
-
-
-// Post a book
+// Create a new book
 router.post("/create-book", verifyAdminToken, postABook);
 
 // Get all books
 router.get("/", getAllBooks);
+
+// Get popular books (add this new route)
+router.get('/popular', getPopularBooks);
 
 // Search books
 router.get('/search', searchBooks);

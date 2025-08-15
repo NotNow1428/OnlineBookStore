@@ -10,8 +10,7 @@ const Banner = () => {
 
       <div className=' md:w-1/2 w-full'>
         <h1 className='md:text-5xl font-medium mb-7'>New Releases,This Week!</h1>
-        <p className='mb-18'>It's time to update your reading list with some of the latest and greatest realeases in the literary world.
-            From heart-pumping thrillers to captivating memories, this week's new releases offer something for everyone.
+        <p className='mb-18'>It’s time to refresh your reading list with the latest and greatest releases in the literary world. From heart-pounding thrillers to captivating memoirs, this week’s new arrivals have something for every reader
         </p>
         <button className='btn-primary'>Join US</button>
       </div>  

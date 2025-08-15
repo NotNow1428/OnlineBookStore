@@ -53,15 +53,6 @@ const Dashboard = () => {
         <span className="text-gray-300 mt-1">Total Sales</span>
       </div>
 
-      {/* Trending Books */}
-      <div className="flex flex-col items-center bg-slate-800 rounded-lg shadow p-6 hover:bg-slate-700 transition">
-        <div className="inline-flex items-center justify-center h-16 w-16 bg-red-100 text-red-600 rounded-full mb-4">
-          🔥
-        </div>
-        <span className="text-2xl font-bold text-gray-100">{data?.trendingBooks}</span>
-        <span className="text-gray-300 mt-1 text-sm">(13%) Trending Books This Month</span>
-      </div>
-
       {/* Total Orders */}
       <Link
         to="/dashboard/manage-orders"

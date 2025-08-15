@@ -91,7 +91,7 @@ const AddBooks = () => {
           className="bg-slate-700 text-gray-200 border-slate-600"
         />
 
-        <div className="mb-4">
+        {/* <div className="mb-4">
           <label className="inline-flex items-center text-gray-300">
             <input
               type="checkbox"
@@ -100,7 +100,7 @@ const AddBooks = () => {
             />
             <span className="ml-2 text-sm font-semibold">Trending</span>
           </label>
-        </div>
+        </div> */}
 
         <InputField
           label="Price"

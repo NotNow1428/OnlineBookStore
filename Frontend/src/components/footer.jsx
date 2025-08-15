@@ -10,7 +10,7 @@ const Footer = () => {
                 <div className='max-w-80'>
                     <img src={fimg} alt="logo" className=' mb-4 h-8 md:h-9' />
                     <p className='text-sm'>
-                        Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text
+                        "Your trusted online bookstore offering a wide range of books at great prices. Discover, order, and enjoy your next read — anytime, anywhere."
                     </p>
                 </div>
 

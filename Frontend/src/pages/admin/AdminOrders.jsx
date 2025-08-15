@@ -48,14 +48,7 @@ const AdminOrders = () => {
 
   const sortedOrders = [...orders].sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
 
-  const getStatusBadge = (status) => {
-    switch(status) {
-      case 'approved':
-        return <span className="bg-green-900/30 text-green-400 px-2 py-1 rounded-full text-xs font-semibold">Approved</span>;
-      default:
-        return <span className="bg-yellow-900/30 text-yellow-400 px-2 py-1 rounded-full text-xs font-semibold">Pending</span>;
-    }
-  };
+  
 
   return (
     <div className="max-w-7xl mx-auto p-6">
@@ -101,7 +94,7 @@ const AdminOrders = () => {
                     {order.totalPrice?.toLocaleString()}
                   </td>
                   <td className="px-4 py-3 text-center">
-                    {getStatusBadge(order.status)}
+                    {(order.status)}
                   </td>
                   <td className="px-4 py-3 text-center text-gray-400 text-sm">
                     {new Date(order.createdAt).toLocaleDateString()}

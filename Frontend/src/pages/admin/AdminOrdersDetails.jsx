@@ -35,7 +35,7 @@ const AdminOrderDetails = () => {
         </p>
         <p>
           <span className="font-semibold text-gray-300">Status:</span>{' '}
-          {order.isApproved ? (
+          {order.status === 'approved' ? (
             <span className="text-green-400">Approved ✅</span>
           ) : (
             <span className="text-yellow-400">Pending ⏳</span>

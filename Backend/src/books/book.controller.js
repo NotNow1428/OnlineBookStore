@@ -78,24 +78,8 @@ const deleteBook = async (req, res) => {
     }
 };
 
-// SEARCH books
-// const searchBooks = async (req, res) => {
-//   const query = req.query.query || '';
-//   try {
-//     const books = await Book.find({
-//       $or: [
-//         { title: { $regex: query, $options: 'i' } },
-//         { author: { $regex: query, $options: 'i' } }
-//       ]
-//     }).limit(50);
-//     res.status(200).json(books);
-//   } catch (error) {
-//     console.error("Error during book search:", error);
-//     res.status(500).json({ message: "Failed to perform search" });
-//   }
-// };
 
-// modify
+// for searching books
 const searchBooksAlgorithm = async (query) => {
     return await Book.find({
         $or: [
@@ -115,6 +99,14 @@ const searchBooks = async (req, res) => {
     }
 };
 
+const getPopularBooks = async (req, res) => {
+    try {
+        const popularBooks = await Book.find().sort({ orderCount: -1 }).limit(10);
+        res.status(200).json(popularBooks);
+    } catch (error) {
+        res.status(500).json({ error: error.message });
+    }
+};
 
 module.exports = {
     postABook,
@@ -124,4 +116,5 @@ module.exports = {
     deleteBook,
     searchBooks,
     searchBooksAlgorithm,
+    getPopularBooks
 };

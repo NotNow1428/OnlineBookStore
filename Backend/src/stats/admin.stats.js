@@ -5,54 +5,48 @@ const Book = require('../books/book.model');
 const router = express.Router();
 
 router.get("/", async (req, res) => {
-    try {
-        // Total orders
-        const totalOrders = await Order.countDocuments();
+  try {
+    // Total orders
+    const totalOrders = await Order.countDocuments();
 
-        // Total sales (only approved orders)
-        const totalSales = await Order.aggregate([
-            { $match: { status: 'approved' } },
-            {
-                $group: {
-                    _id: null,
-                    totalSales: { $sum: "$totalPrice" },
-                }
-            }
-        ]);
+    // Total sales (only approved orders)
+    const totalSales = await Order.aggregate([
+      { $match: { status: 'approved' } },
+      {
+        $group: {
+          _id: null,
+          totalSales: { $sum: "$totalPrice" },
+        }
+      }
+    ]);
 
-        //  Trending books statistics: 
-        const trendingBooksCount = await Book.aggregate([
-            { $match: { trending: true } },  
-            { $count: "trendingBooksCount" } 
-        ]);
-        const trendingBooks = trendingBooksCount.length > 0 ? trendingBooksCount[0].trendingBooksCount : 0;
+    //  Total number of books
+    const totalBooks = await Book.countDocuments();
 
-        //  Total number of books
-        const totalBooks = await Book.countDocuments();
+    //  Monthly sales (group by month and sum total sales for each month)
+    const monthlySales = await Order.aggregate([
+      {
+        $group: {
+          _id: { $dateToString: { format: "%Y-%m", date: "$createdAt" } },
+          totalSales: { $sum: "$totalPrice" },
+          totalOrders: { $sum: 1 }
+        }
+      },
+      { $sort: { _id: 1 } }
+    ]);
 
-        //  Monthly sales (group by month and sum total sales for each month)
-        const monthlySales = await Order.aggregate([
-            {
-                $group: {
-                    _id: { $dateToString: { format: "%Y-%m", date: "$createdAt" } },  
-                    totalSales: { $sum: "$totalPrice" },  
-                    totalOrders: { $sum: 1 } 
-                }
-            },
-            { $sort: { _id: 1 } }  
-        ]);
+    // Result summary
+    res.status(200).json({
+      totalOrders,
+      totalSales: totalSales[0]?.totalSales || 0,
+      totalBooks,
+      monthlySales,
+    });
 
-        // Result summary
-        res.status(200).json({  totalOrders,
-            totalSales: totalSales[0]?.totalSales || 0,
-            trendingBooks,
-            totalBooks,
-            monthlySales, });
-      
-    } catch (error) {
-        console.error("Error fetching admin stats:", error);
-        res.status(500).json({ message: "Failed to fetch admin stats" });
-    }
+  } catch (error) {
+    console.error("Error fetching admin stats:", error);
+    res.status(500).json({ message: "Failed to fetch admin stats" });
+  }
 })
 
 // GET /api/books/search?query=someTerm
